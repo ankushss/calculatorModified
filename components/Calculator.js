@@ -10,14 +10,17 @@ const Calculator = () => {
     const [error, setError] = useState(null);
 
     const onPressButton = (text) => {
-        setError(null)
         setText(prevState => {
+            if (isOperation(prevState.charAt(prevState.length - 2)) && prevState.charAt(prevState.length - 1) == "0" && text != ".") {
+                return `${prevState.substring(0, prevState.length-1)}${text}`
+            }   
             return `${prevState}${text}`
         })
+        setError(null)
     }
 
     const onPressBack = () => {
-        setText(prevState => prevState.slice(0, prevState.length - 1))
+        setText(prevState => prevState.substring(0, prevState.length - 1))
     }
 
     const isOperation = (char) => {
